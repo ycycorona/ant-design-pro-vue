@@ -11094,8 +11094,8 @@ webpack-sources@^1.1.0, webpack-sources@^1.3.0:
 
 webpack-theme-color-replacer@^1.2.15:
   version "1.2.15"
-  resolved "https://registry.npm.taobao.org/webpack-theme-color-replacer/download/webpack-theme-color-replacer-1.2.15.tgz?cache=0&sync_timestamp=1560616828199&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-theme-color-replacer%2Fdownload%2Fwebpack-theme-color-replacer-1.2.15.tgz#f42ab038974d8a6ee85a074b65de0cfc17c9f472"
-  integrity sha1-9CqwOJdNim7oWgdLZd4M/BfJ9HI=
+  resolved "https://registry.yarnpkg.com/webpack-theme-color-replacer/-/webpack-theme-color-replacer-1.2.15.tgz#f42ab038974d8a6ee85a074b65de0cfc17c9f472"
+  integrity sha512-tht5fk6ce6ZwXqPbvkLBJMS+iAM3H60pyexKvZHEbkHpQ1Onq2Y0u6+wUbNBQ/QfDEvCTX5MSkNfD2w/ZJEeKg==
 
 "webpack@>=4 < 4.29":
   version "4.28.4"
