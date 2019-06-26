@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo, logout } from '@/api/login'
+import { login, getInfo, logout, getMenu } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -34,12 +34,25 @@ const user = {
 
   actions: {
     // 登录
-    Login ({ commit }, userInfo) {
+    Login({ state, commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          const result = response.result
-          Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
+          const result = response.data
+          Vue.ls.set(ACCESS_TOKEN, result.token, 60 * 60 * 1000)
+          debugger
           commit('SET_TOKEN', result.token)
+          commit('SET_ROLES', result.roles)
+          commit('SET_INFO', result.user)
+          commit('SET_PERMISSIONS', result.permissions)
+          commit('SET_NAME', { name: result.user.userName, welcome: welcome() })
+          commit('SET_AVATAR', result.user.avatar)
+          getMenu(state.name)
+            .then(response => {
+
+            })
+            .catch(error => {
+              throw (error)
+            })
           resolve()
         }).catch(error => {
           reject(error)
@@ -48,7 +61,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo ({ commit }) {
+    GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
           const result = response.result
@@ -80,7 +93,7 @@ const user = {
     },
 
     // 登出
-    Logout ({ commit, state }) {
+    Logout({ commit, state }) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
