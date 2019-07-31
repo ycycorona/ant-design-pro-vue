@@ -1,24 +1,24 @@
 <template>
   <div>
     <a-card class="card" title="仓库管理" :bordered="false">
-      <repository-form ref="repository" :showSubmit="false" />
+      <repository-form ref="repository" :show-submit="false" />
     </a-card>
     <a-card class="card" title="任务管理" :bordered="false">
-      <task-form ref="task" :showSubmit="false" />
+      <task-form ref="task" :show-submit="false" />
     </a-card>
 
     <!-- table -->
     <a-card>
       <a-table
         :columns="columns"
-        :dataSource="data"
+        :data-source="data"
         :pagination="false"
         :loading="memberLoading"
       >
         <template v-for="(col, i) in ['name', 'workId', 'department']" :slot="col" slot-scope="text, record">
           <a-input
-            :key="col"
             v-if="record.editable"
+            :key="col"
             style="margin: -5px 0"
             :value="text"
             :placeholder="columns[i].title"
@@ -56,20 +56,20 @@
     <!-- fixed footer toolbar -->
     <footer-tool-bar :style="{ width: isSideMenu() && isDesktop() ? `calc(100% - ${sidebarOpened ? 256 : 80}px)` : '100%'}">
       <span class="popover-wrapper">
-        <a-popover title="表单校验信息" overlayClassName="antd-pro-pages-forms-style-errorPopover" trigger="click" :getPopupContainer="trigger => trigger.parentNode">
+        <a-popover title="表单校验信息" overlay-class-name="antd-pro-pages-forms-style-errorPopover" trigger="click" :get-popup-container="trigger => trigger.parentNode">
           <template slot="content">
-            <li v-for="item in errors" :key="item.key" @click="scrollToField(item.key)" class="antd-pro-pages-forms-style-errorListItem">
+            <li v-for="item in errors" :key="item.key" class="antd-pro-pages-forms-style-errorListItem" @click="scrollToField(item.key)">
               <a-icon type="cross-circle-o" class="antd-pro-pages-forms-style-errorIcon" />
               <div class="">{{ item.message }}</div>
               <div class="antd-pro-pages-forms-style-errorField">{{ item.fieldLabel }}</div>
             </li>
           </template>
-          <span class="antd-pro-pages-forms-style-errorIcon" v-if="errors.length > 0">
+          <span v-if="errors.length > 0" class="antd-pro-pages-forms-style-errorIcon">
             <a-icon type="exclamation-circle" />{{ errors.length }}
           </span>
         </a-popover>
       </span>
-      <a-button type="primary" @click="validate" :loading="loading">提交</a-button>
+      <a-button type="primary" :loading="loading" @click="validate">提交</a-button>
     </footer-tool-bar>
   </div>
 </template>
@@ -97,13 +97,13 @@ const fieldLabels = {
 
 export default {
   name: 'AdvancedForm',
-  mixins: [mixin, mixinDevice],
   components: {
     FooterToolBar,
     RepositoryForm,
     TaskForm
   },
-  data () {
+  mixins: [mixin, mixinDevice],
+  data() {
     return {
       description: '高级表单常见于一次性输入和提交大批量数据的场景。',
       loading: false,
@@ -166,10 +166,10 @@ export default {
     }
   },
   methods: {
-    handleSubmit (e) {
+    handleSubmit(e) {
       e.preventDefault()
     },
-    newMember () {
+    newMember() {
       const length = this.data.length
       this.data.push({
         key: length === 0 ? '1' : (parseInt(this.data[length - 1].key) + 1).toString(),
@@ -180,11 +180,11 @@ export default {
         isNew: true
       })
     },
-    remove (key) {
+    remove(key) {
       const newData = this.data.filter(item => item.key !== key)
       this.data = newData
     },
-    saveRow (record) {
+    saveRow(record) {
       this.memberLoading = true
       const { key, name, workId, department } = record
       if (!name || !workId || !department) {
@@ -204,19 +204,19 @@ export default {
         this.memberLoading = false
       })
     },
-    toggle (key) {
+    toggle(key) {
       const target = this.data.filter(item => item.key === key)[0]
       target.editable = !target.editable
     },
-    getRowByKey (key, newData) {
+    getRowByKey(key, newData) {
       const data = this.data
       return (newData || data).filter(item => item.key === key)[0]
     },
-    cancel (key) {
+    cancel(key) {
       const target = this.data.filter(item => item.key === key)[0]
       target.editable = false
     },
-    handleChange (value, key, column) {
+    handleChange(value, key, column) {
       const newData = [...this.data]
       const target = newData.filter(item => key === item.key)[0]
       if (target) {
@@ -226,7 +226,7 @@ export default {
     },
 
     // 最终全页面提交
-    validate () {
+    validate() {
       const { $refs: { repository, task }, $notification } = this
       const repositoryForm = new Promise((resolve, reject) => {
         repository.form.validateFields((err, values) => {
@@ -261,7 +261,7 @@ export default {
         console.log(tmp)
       })
     },
-    errorList (errors) {
+    errorList(errors) {
       if (!errors || errors.length === 0) {
         return null
       }
@@ -277,7 +277,7 @@ export default {
         }
       })
     },
-    scrollToField (fieldKey) {
+    scrollToField(fieldKey) {
       const labelNode = document.querySelector(`label[for="${fieldKey}"]`)
       if (labelNode) {
         labelNode.scrollIntoView(true)

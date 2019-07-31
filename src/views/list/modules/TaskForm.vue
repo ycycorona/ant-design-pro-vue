@@ -1,24 +1,24 @@
 <template>
   <a-modal :width="640" :visible="visible" title="任务添加" @ok="handleSubmit" @cancel="visible = false">
-    <a-form @submit="handleSubmit" :form="form">
+    <a-form :form="form" @submit="handleSubmit">
       <a-form-item
         label="任务名称"
-        :labelCol="labelCol"
-        :wrapperCol="wrapperCol"
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
       >
         <a-input v-decorator="['taskName', {rules:[{required: true, message: '请输入任务名称'}]}]" />
       </a-form-item>
       <a-form-item
         label="开始时间"
-        :labelCol="labelCol"
-        :wrapperCol="wrapperCol"
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
       >
-        <a-date-picker style="width: 100%" v-decorator="['startTime', {rules:[{required: true, message: '请选择开始时间'}]}]" />
+        <a-date-picker v-decorator="['startTime', {rules:[{required: true, message: '请选择开始时间'}]}]" style="width: 100%" />
       </a-form-item>
       <a-form-item
         label="任务负责人"
-        :labelCol="labelCol"
-        :wrapperCol="wrapperCol"
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
       >
         <a-select v-decorator="['owner', {rules:[{required: true, message: '请选择开始时间'}]}]">
           <a-select-option :value="0">付晓晓</a-select-option>
@@ -27,8 +27,8 @@
       </a-form-item>
       <a-form-item
         label="产品描述"
-        :labelCol="labelCol"
-        :wrapperCol="wrapperCol"
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
       >
         <a-textarea v-decorator="['desc']"></a-textarea>
       </a-form-item>
@@ -39,7 +39,7 @@
 <script>
 export default {
   name: 'TaskForm',
-  data () {
+  data() {
     return {
       labelCol: {
         xs: { span: 24 },
@@ -55,18 +55,18 @@ export default {
     }
   },
   methods: {
-    add () {
+    add() {
       this.visible = true
     },
-    edit (record) {
-      const { form: { setFieldsValue } } = this
+    edit(record) {
+      const { form: { setFieldsValue }} = this
       this.visible = true
       this.$nextTick(() => {
         setFieldsValue({ taskName: 'test' })
       })
     },
-    handleSubmit () {
-      const { form: { validateFields } } = this
+    handleSubmit() {
+      const { form: { validateFields }} = this
       this.visible = true
       validateFields((errors, values) => {
         if (!errors) {

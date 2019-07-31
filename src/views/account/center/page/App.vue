@@ -2,13 +2,14 @@
   <div class="app-list">
     <a-list
       :grid="{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }"
-      :dataSource="dataSource">
+      :data-source="dataSource"
+    >
       <a-list-item slot="renderItem" slot-scope="item">
         <a-card :hoverable="true">
           <a-card-meta>
-            <div style="margin-bottom: 3px" slot="title">{{ item.title }}</div>
-            <a-avatar class="card-avatar" slot="avatar" :src="item.avatar" size="small"/>
-            <div class="meta-cardInfo" slot="description">
+            <div slot="title" style="margin-bottom: 3px">{{ item.title }}</div>
+            <a-avatar slot="avatar" class="card-avatar" :src="item.avatar" size="small" />
+            <div slot="description" class="meta-cardInfo">
               <div>
                 <p>活跃用户</p>
                 <p>
@@ -21,20 +22,20 @@
               </div>
             </div>
           </a-card-meta>
-          <template class="ant-card-actions" slot="actions">
+          <template slot="actions" class="ant-card-actions">
             <a>
-              <a-icon type="download"/>
+              <a-icon type="download" />
             </a>
             <a>
-              <a-icon type="edit"/>
+              <a-icon type="edit" />
             </a>
             <a>
-              <a-icon type="share-alt"/>
+              <a-icon type="share-alt" />
             </a>
             <a>
               <a-dropdown>
                 <a class="ant-dropdown-link" href="javascript:;">
-                  <a-icon type="ellipsis"/>
+                  <a-icon type="ellipsis" />
                 </a>
                 <a-menu slot="overlay">
                   <a-menu-item>
@@ -71,7 +72,7 @@ for (let i = 0; i < 11; i++) {
 export default {
   name: 'Article',
   components: {},
-  data () {
+  data() {
     return {
       dataSource
     }

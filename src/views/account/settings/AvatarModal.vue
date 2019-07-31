@@ -2,27 +2,28 @@
   <a-modal
     title="修改头像"
     :visible="visible"
-    :maskClosable="false"
-    :confirmLoading="confirmLoading"
+    :mask-closable="false"
+    :confirm-loading="confirmLoading"
     :width="800"
-    @cancel="cancelHandel">
+    @cancel="cancelHandel"
+  >
     <a-row>
       <a-col :xs="24" :md="12" :style="{height: '350px'}">
         <vue-cropper
           ref="cropper"
           :img="options.img"
           :info="true"
-          :autoCrop="options.autoCrop"
-          :autoCropWidth="options.autoCropWidth"
-          :autoCropHeight="options.autoCropHeight"
-          :fixedBox="options.fixedBox"
+          :auto-crop="options.autoCrop"
+          :auto-crop-width="options.autoCropWidth"
+          :auto-crop-height="options.autoCropHeight"
+          :fixed-box="options.fixedBox"
           @realTime="realTime"
         >
         </vue-cropper>
       </a-col>
       <a-col :xs="24" :md="12" :style="{height: '350px'}">
         <div class="avatar-upload-preview">
-          <img :src="previews.url" :style="previews.img"/>
+          <img :src="previews.url" :style="previews.img" />
         </div>
       </a-col>
     </a-row>
@@ -42,7 +43,7 @@ export default {
     VueCropper
   },
   */
-  data () {
+  data() {
     return {
       visible: false,
       id: null,
@@ -59,19 +60,19 @@ export default {
     }
   },
   methods: {
-    edit (id) {
+    edit(id) {
       this.visible = true
       this.id = id
       /* 获取原始头像 */
     },
-    close () {
+    close() {
       this.id = null
       this.visible = false
     },
-    cancelHandel () {
+    cancelHandel() {
       this.close()
     },
-    okHandel () {
+    okHandel() {
       const vm = this
 
       vm.confirmLoading = true
@@ -82,7 +83,7 @@ export default {
       }, 2000)
     },
 
-    realTime (data) {
+    realTime(data) {
       this.previews = data
     }
   }

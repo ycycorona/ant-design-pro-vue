@@ -3,12 +3,13 @@
     <a-row :gutter="8">
       <a-col :span="5">
         <s-tree
-          :dataSource="orgTree"
-          :openKeys.sync="openKeys"
+          :data-source="orgTree"
+          :open-keys.sync="openKeys"
           :search="true"
           @click="handleClick"
           @add="handleAdd"
-          @titleClick="handleTitleClick"></s-tree>
+          @titleClick="handleTitleClick"
+        ></s-tree>
       </a-col>
       <a-col :span="19">
         <s-table
@@ -17,7 +18,7 @@
           :columns="columns"
           :data="loadData"
           :alert="false"
-          :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+          :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
         >
           <span slot="action" slot-scope="text, record">
             <template v-if="$auth('table.update')">
@@ -62,7 +63,7 @@ export default {
     STree,
     OrgModal
   },
-  data () {
+  data() {
     return {
       openKeys: ['key-01'],
 
@@ -114,38 +115,38 @@ export default {
       selectedRows: []
     }
   },
-  created () {
+  created() {
     getOrgTree().then(res => {
       this.orgTree = res.result
     })
   },
   methods: {
-    handleClick (e) {
+    handleClick(e) {
       console.log('handleClick', e)
       this.queryParam = {
         key: e.key
       }
       this.$refs.table.refresh(true)
     },
-    handleAdd (item) {
+    handleAdd(item) {
       console.log('add button, item', item)
       this.$message.info(`提示：你点了 ${item.key} - ${item.title} `)
       this.$refs.modal.add(item.key)
     },
-    handleTitleClick (item) {
+    handleTitleClick(item) {
       console.log('handleTitleClick', item)
     },
-    titleClick (e) {
+    titleClick(e) {
       console.log('titleClick', e)
     },
-    handleSaveOk () {
+    handleSaveOk() {
 
     },
-    handleSaveClose () {
+    handleSaveClose() {
 
     },
 
-    onSelectChange (selectedRowKeys, selectedRows) {
+    onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     }

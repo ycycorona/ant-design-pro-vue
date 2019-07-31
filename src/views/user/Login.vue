@@ -2,58 +2,58 @@
   <div class="main">
     <a-form
       id="formLogin"
-      class="user-layout-login"
       ref="formLogin"
+      class="user-layout-login"
       :form="form"
       @submit="handleSubmit"
     >
       <a-tabs
-        :activeKey="customActiveKey"
-        :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
+        :active-key="customActiveKey"
+        :tab-bar-style="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="handleTabClick"
       >
         <a-tab-pane key="tab1" tab="账号密码登录">
           <a-form-item>
             <a-input
-              size="large"
-              type="text"
-              placeholder="账户: admin"
               v-decorator="[
                 'username',
                 {rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
               ]"
+              size="large"
+              type="text"
+              placeholder="账户: admin"
             >
-              <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+              <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
           </a-form-item>
 
           <a-form-item>
             <a-input
-              size="large"
-              type="password"
-              autocomplete="false"
-              placeholder="密码: admin or ant.design"
               v-decorator="[
                 'password',
                 {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
               ]"
+              size="large"
+              type="password"
+              autocomplete="false"
+              placeholder="密码: admin or ant.design"
             >
-              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
           </a-form-item>
         </a-tab-pane>
         <a-tab-pane key="tab2" tab="手机号登录">
           <a-form-item>
-            <a-input size="large" type="text" placeholder="手机号" v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]">
-              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+            <a-input v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]" size="large" type="text" placeholder="手机号">
+              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
           </a-form-item>
 
           <a-row :gutter="16">
             <a-col class="gutter-row" :span="16">
               <a-form-item>
-                <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
-                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+                <a-input v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]" size="large" type="text" placeholder="验证码">
+                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }" />
                 </a-input>
               </a-form-item>
             </a-col>
@@ -83,7 +83,7 @@
         <a-button
           size="large"
           type="primary"
-          htmlType="submit"
+          html-type="submit"
           class="login-button"
           :loading="state.loginBtn"
           :disabled="state.loginBtn"
@@ -125,7 +125,7 @@ export default {
   components: {
     TwoStepCaptcha
   },
-  data () {
+  data() {
     return {
       customActiveKey: 'tab1',
       loginBtn: false,
@@ -143,7 +143,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     get2step({ })
       .then(res => {
         this.requiredTwoStepCaptcha = res.result.stepCode
@@ -156,7 +156,7 @@ export default {
   methods: {
     ...mapActions(['Login', 'Logout']),
     // handler
-    handleUsernameOrEmail (rule, value, callback) {
+    handleUsernameOrEmail(rule, value, callback) {
       const { state } = this
       const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
       if (regex.test(value)) {
@@ -166,11 +166,11 @@ export default {
       }
       callback()
     },
-    handleTabClick (key) {
+    handleTabClick(key) {
       this.customActiveKey = key
       // this.form.resetFields()
     },
-    handleSubmit (e) {
+    handleSubmit(e) {
       e.preventDefault()
       const {
         form: { validateFields },
@@ -203,7 +203,7 @@ export default {
         }
       })
     },
-    getCaptcha (e) {
+    getCaptcha(e) {
       e.preventDefault()
       const { form: { validateFields }, state } = this
 
@@ -237,16 +237,16 @@ export default {
         }
       })
     },
-    stepCaptchaSuccess () {
+    stepCaptchaSuccess() {
       this.loginSuccess()
     },
-    stepCaptchaCancel () {
+    stepCaptchaCancel() {
       this.Logout().then(() => {
         this.loginBtn = false
         this.stepCaptchaVisible = false
       })
     },
-    loginSuccess (res) {
+    loginSuccess(res) {
       console.log(res)
       this.$router.push({ name: 'dashboard' })
       // 延迟 1 秒显示欢迎信息
@@ -257,7 +257,7 @@ export default {
         })
       }, 1000)
     },
-    requestFailed (err) {
+    requestFailed(err) {
       this.$notification['error']({
         message: '错误',
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',

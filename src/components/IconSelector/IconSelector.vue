@@ -1,9 +1,9 @@
 <template>
   <div :class="prefixCls">
     <a-tabs v-model="currentTab" @change="handleTabChange">
-      <a-tab-pane v-for="v in icons" :tab="v.title" :key="v.key">
+      <a-tab-pane v-for="v in icons" :key="v.key" :tab="v.title">
         <ul>
-          <li v-for="(icon, key) in v.icons" :key="`${v.key}-${key}`" :class="{ 'active': selectedIcon==icon }" @click="handleSelectedIcon(icon)" >
+          <li v-for="(icon, key) in v.icons" :key="`${v.key}-${key}`" :class="{ 'active': selectedIcon==icon }" @click="handleSelectedIcon(icon)">
             <a-icon :type="icon" :style="{ fontSize: '36px' }" />
           </li>
         </ul>
@@ -27,7 +27,7 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       selectedIcon: this.value || '',
       currentTab: 'directional',
@@ -35,25 +35,25 @@ export default {
     }
   },
   watch: {
-    value (val) {
+    value(val) {
       this.selectedIcon = val
       this.autoSwitchTab()
     }
   },
-  created () {
+  created() {
     if (this.value) {
       this.autoSwitchTab()
     }
   },
   methods: {
-    handleSelectedIcon (icon) {
+    handleSelectedIcon(icon) {
       this.selectedIcon = icon
       this.$emit('change', icon)
     },
-    handleTabChange (activeKey) {
+    handleTabChange(activeKey) {
       this.currentTab = activeKey
     },
-    autoSwitchTab () {
+    autoSwitchTab() {
       icons.some(item => item.icons.some(icon => icon === this.value) && (this.currentTab = item.key))
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <a-list
-    itemLayout="horizontal"
-    :dataSource="data"
+    item-layout="horizontal"
+    :data-source="data"
   >
 
   </a-list>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       data: []
     }

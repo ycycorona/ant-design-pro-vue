@@ -12,17 +12,22 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       name: '',
       breadList: []
     }
   },
-  created () {
+  watch: {
+    $route() {
+      this.getBreadcrumb()
+    }
+  },
+  created() {
     this.getBreadcrumb()
   },
   methods: {
-    getBreadcrumb () {
+    getBreadcrumb() {
       this.breadList = []
       // this.breadList.push({name: 'index', path: '/dashboard/', meta: {title: '首页'}})
 
@@ -31,11 +36,6 @@ export default {
         // item.name !== 'index' && this.breadList.push(item)
         this.breadList.push(item)
       })
-    }
-  },
-  watch: {
-    $route () {
-      this.getBreadcrumb()
     }
   }
 }

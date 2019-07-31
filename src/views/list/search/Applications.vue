@@ -24,10 +24,10 @@
             <a-col :lg="8" :md="10" :sm="10" :xs="24">
               <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="作者">
                 <a-select
+                  v-decorator="['author']"
                   style="max-width: 200px; width: 100%;"
                   mode="multiple"
                   placeholder="不限"
-                  v-decorator="['author']"
                   @change="handleChange"
                 >
                   <a-select-option value="lisa">王昭君</a-select-option>
@@ -37,9 +37,9 @@
             <a-col :lg="8" :md="10" :sm="10" :xs="24">
               <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="好评度">
                 <a-select
+                  v-decorator="['rate']"
                   style="max-width: 200px; width: 100%;"
                   placeholder="不限"
-                  v-decorator="['rate']"
                 >
                   <a-select-option value="good">优秀</a-select-option>
                   <a-select-option value="normal">普通</a-select-option>
@@ -57,7 +57,7 @@
           <a-card :body-style="{ paddingBottom: 20 }" hoverable>
             <a-card-meta :title="item.title">
               <template slot="avatar">
-                <a-avatar size="small" :src="item.avatar"/>
+                <a-avatar size="small" :src="item.avatar" />
               </template>
             </a-card-meta>
             <template slot="actions">
@@ -114,27 +114,27 @@ export default {
     StandardFormRow,
     CardInfo
   },
-  data () {
+  filters: {
+    fromNow(date) {
+      return moment(date).fromNow()
+    }
+  },
+  data() {
     return {
       data: [],
       form: this.$form.createForm(this),
       loading: true
     }
   },
-  filters: {
-    fromNow (date) {
-      return moment(date).fromNow()
-    }
-  },
-  mounted () {
+  mounted() {
     this.getList()
   },
   methods: {
-    handleChange (value) {
+    handleChange(value) {
       console.log(`selected ${value}`)
     },
-    getList () {
-      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
+    getList() {
+      this.$http.get('/list/article', { params: { count: 8 }}).then(res => {
         console.log('res', res)
         this.data = res.result
         this.loading = false

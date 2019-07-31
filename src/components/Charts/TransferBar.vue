@@ -5,11 +5,12 @@
       height="254"
       :data="data"
       :scale="scale"
-      :forceFit="true"
-      :padding="['auto', 'auto', '40', '50']">
+      :force-fit="true"
+      :padding="['auto', 'auto', '40', '50']"
+    >
       <v-tooltip />
       <v-axis />
-      <v-bar position="x*y"/>
+      <v-bar position="x*y" />
     </v-chart>
   </div>
 </template>
@@ -42,18 +43,18 @@ export default {
       default: ''
     }
   },
-  data () {
+  data() {
     return {
       data: [],
       scale,
       tooltip
     }
   },
-  created () {
+  created() {
     this.getMonthBar()
   },
   methods: {
-    getMonthBar () {
+    getMonthBar() {
       this.$http.get('/analysis/month-bar')
         .then(res => {
           this.data = res.result

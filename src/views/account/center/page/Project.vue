@@ -44,27 +44,27 @@ export default {
     TagSelectOption,
     StandardFormRow
   },
-  data () {
+  filters: {
+    fromNow(date) {
+      return moment(date).fromNow()
+    }
+  },
+  data() {
     return {
       data: [],
       form: this.$form.createForm(this),
       loading: true
     }
   },
-  filters: {
-    fromNow (date) {
-      return moment(date).fromNow()
-    }
-  },
-  mounted () {
+  mounted() {
     this.getList()
   },
   methods: {
-    handleChange (value) {
+    handleChange(value) {
       console.log(`selected ${value}`)
     },
-    getList () {
-      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
+    getList() {
+      this.$http.get('/list/article', { params: { count: 8 }}).then(res => {
         console.log('res', res)
         this.data = res.result
         this.loading = false

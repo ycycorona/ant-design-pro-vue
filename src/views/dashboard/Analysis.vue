@@ -3,7 +3,7 @@
     <a-row :gutter="24">
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="总销售额" total="￥126,560">
-          <a-tooltip title="指标说明" slot="action">
+          <a-tooltip slot="action" title="指标说明">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
@@ -21,7 +21,7 @@
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="访问量" :total="8846 | NumberFormat">
-          <a-tooltip title="指标说明" slot="action">
+          <a-tooltip slot="action" title="指标说明">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
@@ -32,7 +32,7 @@
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="支付笔数" :total="6560 | NumberFormat">
-          <a-tooltip title="指标说明" slot="action">
+          <a-tooltip slot="action" title="指标说明">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
@@ -43,7 +43,7 @@
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="运营活动效果" total="78%">
-          <a-tooltip title="指标说明" slot="action">
+          <a-tooltip slot="action" title="指标说明">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
@@ -66,7 +66,7 @@
     <a-card :loading="loading" :bordered="false" :body-style="{padding: '0'}">
       <div class="salesCard">
         <a-tabs default-active-key="1" size="large" :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}">
-          <div class="extra-wrapper" slot="tabBarExtraContent">
+          <div slot="tabBarExtraContent" class="extra-wrapper">
             <div class="extra-item">
               <a>今日</a>
               <a>本周</a>
@@ -75,23 +75,23 @@
             </div>
             <a-range-picker :style="{width: '256px'}" />
           </div>
-          <a-tab-pane loading="true" tab="销售额" key="1">
+          <a-tab-pane key="1" loading="true" tab="销售额">
             <a-row>
               <a-col :xl="16" :lg="12" :md="12" :sm="24" :xs="24">
                 <bar :data="barData" title="销售额排行" />
               </a-col>
               <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list title="门店销售排行榜" :list="rankList"/>
+                <rank-list title="门店销售排行榜" :list="rankList" />
               </a-col>
             </a-row>
           </a-tab-pane>
-          <a-tab-pane tab="访问量" key="2">
+          <a-tab-pane key="2" tab="访问量">
             <a-row>
               <a-col :xl="16" :lg="12" :md="12" :sm="24" :xs="24">
                 <bar :data="barData2" title="销售额趋势" />
               </a-col>
               <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list title="门店销售排行榜" :list="rankList"/>
+                <rank-list title="门店销售排行榜" :list="rankList" />
               </a-col>
             </a-row>
           </a-tab-pane>
@@ -103,7 +103,7 @@
       <a-row :gutter="24">
         <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
           <a-card :loading="loading" :bordered="false" title="线上热门搜索" :style="{ marginTop: '24px', minHeight: '500px' }">
-            <a-dropdown :trigger="['click']" placement="bottomLeft" slot="extra">
+            <a-dropdown slot="extra" :trigger="['click']" placement="bottomLeft">
               <a class="ant-dropdown-link" href="#">
                 <a-icon type="ellipsis" />
               </a>
@@ -121,28 +121,28 @@
                 <number-info :total="12321" :sub-total="17.1">
                   <span slot="subtitle">
                     <span>搜索用户数</span>
-                    <a-tooltip title="指标说明" slot="action">
+                    <a-tooltip slot="action" title="指标说明">
                       <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />
                     </a-tooltip>
                   </span>
                 </number-info>
                 <!-- miniChart -->
                 <div>
-                  <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />
+                  <mini-smooth-area :style="{ height: '45px' }" :data-source="searchUserData" :scale="searchUserScale" />
                 </div>
               </a-col>
               <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">
                 <number-info :total="2.7" :sub-total="26.2" status="down">
                   <span slot="subtitle">
                     <span>人均搜索次数</span>
-                    <a-tooltip title="指标说明" slot="action">
+                    <a-tooltip slot="action" title="指标说明">
                       <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />
                     </a-tooltip>
                   </span>
                 </number-info>
                 <!-- miniChart -->
                 <div>
-                  <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />
+                  <mini-smooth-area :style="{ height: '45px' }" :data-source="searchUserData" :scale="searchUserScale" />
                 </div>
               </a-col>
             </a-row>
@@ -151,7 +151,7 @@
                 row-key="index"
                 size="small"
                 :columns="searchTableColumns"
-                :dataSource="searchData"
+                :data-source="searchData"
                 :pagination="{ pageSize: 5 }"
               >
                 <span slot="range" slot-scope="text, record">
@@ -181,7 +181,7 @@
                 </a-dropdown>
               </span>
               <div class="analysis-salesTypeRadio">
-                <a-radio-group defaultValue="a">
+                <a-radio-group default-value="a">
                   <a-radio-button value="a">全部渠道</a-radio-button>
                   <a-radio-button value="b">线上</a-radio-button>
                   <a-radio-button value="c">门店</a-radio-button>
@@ -194,12 +194,12 @@
               <!-- style="width: calc(100% - 240px);" -->
               <div>
                 <v-chart :force-fit="true" :height="405" :data="pieData" :scale="pieScale">
-                  <v-tooltip :showTitle="false" dataKey="item*percent" />
+                  <v-tooltip :show-title="false" data-key="item*percent" />
                   <v-axis />
                   <!-- position="right" :offsetX="-140" -->
-                  <v-legend dataKey="item"/>
-                  <v-pie position="percent" color="item" :vStyle="pieStyle" />
-                  <v-coord type="theta" :radius="0.75" :innerRadius="0.6" />
+                  <v-legend data-key="item" />
+                  <v-pie position="percent" color="item" :v-style="pieStyle" />
+                  <v-coord type="theta" :radius="0.75" :inner-radius="0.6" />
                 </v-chart>
               </div>
 
@@ -317,7 +317,6 @@ const pieData = dv.rows
 
 export default {
   name: 'Analysis',
-  mixins: [mixinDevice],
   components: {
     ChartCard,
     MiniArea,
@@ -329,7 +328,8 @@ export default {
     NumberInfo,
     MiniSmoothArea
   },
-  data () {
+  mixins: [mixinDevice],
+  data() {
     return {
       loading: true,
       rankList,
@@ -353,7 +353,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     setTimeout(() => {
       this.loading = !this.loading
     }, 1000)

@@ -37,21 +37,21 @@ export default {
     }
   },
   methods: {
-    getStrDom (str, fullLength) {
+    getStrDom(str, fullLength) {
       return (
         <span>{ cutStrByFullLength(str, this.length) + (fullLength > this.length ? '...' : '') }</span>
       )
     },
-    getTooltip (fullStr, fullLength) {
+    getTooltip(fullStr, fullLength) {
       return (
         <Tooltip>
-          <template slot="title">{ fullStr }</template>
+          <template slot='title'>{ fullStr }</template>
           { this.getStrDom(fullStr, fullLength) }
         </Tooltip>
       )
     }
   },
-  render () {
+  render() {
     const { tooltip, length } = this.$props
     const str = this.$slots.default.map(vNode => vNode.text).join('')
     const fullLength = getStrFullLength(str)

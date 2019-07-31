@@ -1,7 +1,7 @@
 <template>
   <div class="result">
     <div>
-      <a-icon :class="{ 'icon': true, [`${type}`]: true }" :type="localIsSuccess ? 'check-circle' : 'close-circle'"/>
+      <a-icon :class="{ 'icon': true, [`${type}`]: true }" :type="localIsSuccess ? 'check-circle' : 'close-circle'" />
     </div>
     <div class="title">
       <slot name="title">
@@ -13,10 +13,10 @@
         {{ description }}
       </slot>
     </div>
-    <div class="extra" v-if="$slots.default">
+    <div v-if="$slots.default" class="extra">
       <slot></slot>
     </div>
-    <div class="action" v-if="$slots.action">
+    <div v-if="$slots.action" class="action">
       <slot name="action"></slot>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
     type: {
       type: String,
       default: resultEnum[0],
-      validator (val) {
+      validator(val) {
         return (val) => resultEnum.includes(val)
       }
     },
@@ -50,7 +50,7 @@ export default {
     }
   },
   computed: {
-    localIsSuccess: function () {
+    localIsSuccess: function() {
       return this.type === resultEnum[0]
     }
   }

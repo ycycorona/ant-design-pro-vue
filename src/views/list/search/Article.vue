@@ -24,10 +24,10 @@
             <a-col :md="24">
               <a-form-item :wrapper-col="{ span: 24 }">
                 <a-select
+                  v-decorator="['owner']"
                   style="max-width: 268px; width: 100%;"
                   mode="multiple"
                   placeholder="选择 onwer"
-                  v-decorator="['owner']"
                   @change="handleChange"
                 >
                   <a-select-option v-for="item in owners" :key="item.id">{{ item.name }}</a-select-option>
@@ -62,10 +62,10 @@
     <a-card style="margin-top: 24px;" :bordered="false">
       <a-list
         size="large"
-        rowKey="id"
+        row-key="id"
         :loading="loading"
-        itemLayout="vertical"
-        :dataSource="data"
+        item-layout="vertical"
+        :data-source="data"
       >
         <a-list-item :key="item.id" slot="renderItem" slot-scope="item">
           <template slot="actions">
@@ -83,10 +83,10 @@
               </span>
             </template>
           </a-list-item-meta>
-          <article-list-content :description="item.description" :owner="item.owner" :avatar="item.avatar" :href="item.href" :updateAt="item.updatedAt" />
+          <article-list-content :description="item.description" :owner="item.owner" :avatar="item.avatar" :href="item.href" :update-at="item.updatedAt" />
         </a-list-item>
-        <div slot="footer" v-if="data.length > 0" style="text-align: center; margin-top: 16px;">
-          <a-button @click="loadMore" :loading="loadingMore">加载更多</a-button>
+        <div v-if="data.length > 0" slot="footer" style="text-align: center; margin-top: 16px;">
+          <a-button :loading="loadingMore" @click="loadMore">加载更多</a-button>
         </div>
       </a-list>
     </a-card>
@@ -129,7 +129,7 @@ export default {
     ArticleListContent,
     IconText
   },
-  data () {
+  data() {
     return {
       owners,
       loading: true,
@@ -138,21 +138,21 @@ export default {
       form: this.$form.createForm(this)
     }
   },
-  mounted () {
+  mounted() {
     this.getList()
   },
   methods: {
-    handleChange (value) {
+    handleChange(value) {
       console.log(`selected ${value}`)
     },
-    getList () {
+    getList() {
       this.$http.get('/list/article').then(res => {
         console.log('res', res)
         this.data = res.result
         this.loading = false
       })
     },
-    loadMore () {
+    loadMore() {
       this.loadingMore = true
       this.$http.get('/list/article').then(res => {
         this.data = this.data.concat(res.result)
@@ -160,8 +160,8 @@ export default {
         this.loadingMore = false
       })
     },
-    setOwner () {
-      const { form: { setFieldsValue } } = this
+    setOwner() {
+      const { form: { setFieldsValue }} = this
       setFieldsValue({
         owner: ['wzj']
       })

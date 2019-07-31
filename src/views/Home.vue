@@ -5,7 +5,7 @@
       <h3 style="margin-top: 1rem">Welcome to Your Vue.js App</h3>
     </div>
 
-    <br/>
+    <br />
 
     <h2># Trend 组件 </h2>
 
@@ -74,7 +74,8 @@
       <count-down
         style="font-size: 2rem"
         :target="new Date().getTime() + 3000000"
-        :on-end="onEndHandle">
+        :on-end="onEndHandle"
+      >
       </count-down>
 
       <a-divider type="vertical" style="margin: 0 16px" />
@@ -82,7 +83,8 @@
       <count-down
         style="font-size: 2rem"
         :target="new Date().getTime() + 10000"
-        :on-end="onEndHandle2">
+        :on-end="onEndHandle2"
+      >
       </count-down>
     </a-card>
 
@@ -104,7 +106,8 @@
         :sub-title="() => { return 'Visits this week' }"
         :total="12321"
         status="up"
-        :sub-total="17.1"></number-info>
+        :sub-total="17.1"
+      ></number-info>
     </a-card>
 
     <h2># TagSelect 组件 </h2>
@@ -173,26 +176,26 @@ export default {
     DescriptionList,
     DescriptionListItem
   },
-  data () {
+  data() {
     return {
       targetTime: new Date().getTime() + 3900000,
       tagCloudData: []
     }
   },
-  created () {
+  created() {
     this.getTagCloudData()
   },
   methods: {
-    onEndHandle () {
+    onEndHandle() {
       this.$message.success('CountDown callback!!!')
     },
-    onEndHandle2 () {
+    onEndHandle2() {
       this.$notification.open({
         message: 'Notification Title',
         description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
       })
     },
-    getTagCloudData () {
+    getTagCloudData() {
       this.$http.get('/data/antv/tag-cloud').then(res => {
         this.tagCloudData = res.result
       })

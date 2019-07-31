@@ -1,24 +1,24 @@
 <template>
-  <div class="card-list" ref="content">
+  <div ref="content" class="card-list">
     <a-list
       :grid="{gutter: 24, lg: 3, md: 2, sm: 1, xs: 1}"
-      :dataSource="dataSource"
+      :data-source="dataSource"
     >
       <a-list-item slot="renderItem" slot-scope="item">
         <template v-if="item === null">
           <a-button class="new-btn" type="dashed">
-            <a-icon type="plus"/>
+            <a-icon type="plus" />
             新增产品
           </a-button>
         </template>
         <template v-else>
           <a-card :hoverable="true">
             <a-card-meta>
-              <div style="margin-bottom: 3px" slot="title">{{ item.title }}</div>
-              <a-avatar class="card-avatar" slot="avatar" :src="item.avatar" size="large"/>
-              <div class="meta-content" slot="description">{{ item.content }}</div>
+              <div slot="title" style="margin-bottom: 3px">{{ item.title }}</div>
+              <a-avatar slot="avatar" class="card-avatar" :src="item.avatar" size="large" />
+              <div slot="description" class="meta-content">{{ item.content }}</div>
             </a-card-meta>
-            <template class="ant-card-actions" slot="actions">
+            <template slot="actions" class="ant-card-actions">
               <a>操作一</a>
               <a>操作二</a>
             </template>
@@ -43,7 +43,7 @@ for (let i = 0; i < 11; i++) {
 
 export default {
   name: 'CardList',
-  data () {
+  data() {
     return {
       description: '段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态， 提供跨越设计与开发的体验解决方案。',
       linkList: [

@@ -8,10 +8,10 @@
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="8">
-          <head-info title="项目数" content="56" :center="false" :bordered="false"/>
+          <head-info title="项目数" content="56" :center="false" :bordered="false" />
         </a-col>
         <a-col :span="8">
-          <head-info title="团队排名" content="8/24" :center="false" :bordered="false"/>
+          <head-info title="团队排名" content="8/24" :center="false" :bordered="false" />
         </a-col>
         <a-col :span="8">
           <head-info title="项目访问" content="2,223" :center="false" />
@@ -28,14 +28,15 @@
             style="margin-bottom: 24px;"
             :bordered="false"
             title="进行中的项目"
-            :body-style="{ padding: 0 }">
+            :body-style="{ padding: 0 }"
+          >
             <a slot="extra">全部项目</a>
             <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">
+              <a-card-grid v-for="(item, i) in projects" :key="i" class="project-card-grid">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
                   <a-card-meta>
                     <div slot="title" class="card-title">
-                      <a-avatar size="small" :src="item.cover"/>
+                      <a-avatar size="small" :src="item.cover" />
                       <a>{{ item.title }}</a>
                     </div>
                     <div slot="description" class="card-description">
@@ -53,7 +54,7 @@
 
           <a-card :loading="loading" title="动态" :bordered="false">
             <a-list>
-              <a-list-item :key="index" v-for="(item, index) in activities">
+              <a-list-item v-for="(item, index) in activities" :key="index">
                 <a-list-item-meta>
                   <a-avatar slot="avatar" :src="item.user.avatar" />
                   <div slot="title">
@@ -74,7 +75,8 @@
           :lg="24"
           :md="24"
           :sm="24"
-          :xs="24">
+          :xs="24"
+        >
           <a-card title="快速开始 / 便捷导航" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
             <div class="item-group">
               <a>操作一</a>
@@ -95,7 +97,7 @@
           <a-card :loading="loading" title="团队" :bordered="false">
             <div class="members">
               <a-row>
-                <a-col :span="12" v-for="(item, index) in teams" :key="index">
+                <a-col v-for="(item, index) in teams" :key="index" :span="12">
                   <a>
                     <a-avatar size="small" :src="item.avatar" />
                     <span class="member">{{ item.name }}</span>
@@ -129,7 +131,7 @@ export default {
     HeadInfo,
     Radar
   },
-  data () {
+  data() {
     return {
       timeFix: timeFix(),
       avatar: '',
@@ -181,11 +183,11 @@ export default {
     }
   },
   computed: {
-    userInfo () {
+    userInfo() {
       return this.$store.getters.userInfo
     }
   },
-  created () {
+  created() {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
 
@@ -197,7 +199,7 @@ export default {
       // console.log('workplace -> call getServiceList()', res)
     })
   },
-  mounted () {
+  mounted() {
     this.getProjects()
     this.getActivity()
     this.getTeams()
@@ -205,26 +207,26 @@ export default {
   },
   methods: {
     ...mapGetters(['nickname', 'welcome']),
-    getProjects () {
+    getProjects() {
       this.$http.get('/list/search/projects')
         .then(res => {
           this.projects = res.result && res.result.data
           this.loading = false
         })
     },
-    getActivity () {
+    getActivity() {
       this.$http.get('/workplace/activity')
         .then(res => {
           this.activities = res.result
         })
     },
-    getTeams () {
+    getTeams() {
       this.$http.get('/workplace/teams')
         .then(res => {
           this.teams = res.result
         })
     },
-    initRadar () {
+    initRadar() {
       this.radarLoading = true
 
       this.$http.get('/workplace/radar')

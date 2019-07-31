@@ -25,13 +25,13 @@
       <a-button-group style="margin-right: 4px;">
         <a-button>操作</a-button>
         <a-button>操作</a-button>
-        <a-button><a-icon type="ellipsis"/></a-button>
+        <a-button><a-icon type="ellipsis" /></a-button>
       </a-button-group>
-      <a-button type="primary" >主操作</a-button>
+      <a-button type="primary">主操作</a-button>
     </template>
 
     <a-card :bordered="false" title="流程进度">
-      <a-steps :direction="isMobile() && 'vertical' || 'horizontal'" :current="1" progressDot>
+      <a-steps :direction="isMobile() && 'vertical' || 'horizontal'" :current="1" progress-dot>
         <a-step title="创建项目">
         </a-step>
         <a-step title="部门初审">
@@ -54,10 +54,10 @@
       <detail-list title="信息组">
         <detail-list-item term="某某数据">725</detail-list-item>
         <detail-list-item term="该数据更新时间">2018-08-08</detail-list-item>
-        <detail-list-item ></detail-list-item>
+        <detail-list-item></detail-list-item>
         <detail-list-item term="某某数据">725</detail-list-item>
         <detail-list-item term="该数据更新时间">2018-08-08</detail-list-item>
-        <detail-list-item ></detail-list-item>
+        <detail-list-item></detail-list-item>
       </detail-list>
       <a-card type="inner" title="多层信息组">
         <detail-list title="组名称" size="small">
@@ -81,51 +81,54 @@
     </a-card>
 
     <a-card style="margin-top: 24px" :bordered="false" title="用户近半年来电记录">
-      <div class="no-data"><a-icon type="frown-o"/>暂无数据</div>
+      <div class="no-data"><a-icon type="frown-o" />暂无数据</div>
     </a-card>
 
     <!-- 操作 -->
     <a-card
       style="margin-top: 24px"
       :bordered="false"
-      :tabList="tabList"
-      :activeTabKey="activeTabKey"
+      :tab-list="tabList"
+      :active-tab-key="activeTabKey"
       @tabChange="(key) => {this.activeTabKey = key}"
     >
       <a-table
         v-if="activeTabKey === '1'"
         :columns="operationColumns"
-        :dataSource="operation1"
+        :data-source="operation1"
         :pagination="false"
       >
         <template
           slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
+          slot-scope="status"
+        >
+          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter" />
         </template>
       </a-table>
       <a-table
         v-if="activeTabKey === '2'"
         :columns="operationColumns"
-        :dataSource="operation2"
+        :data-source="operation2"
         :pagination="false"
       >
         <template
           slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
+          slot-scope="status"
+        >
+          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter" />
         </template>
       </a-table>
       <a-table
         v-if="activeTabKey === '3'"
         :columns="operationColumns"
-        :dataSource="operation3"
+        :data-source="operation3"
         :pagination="false"
       >
         <template
           slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
+          slot-scope="status"
+        >
+          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter" />
         </template>
       </a-table>
     </a-card>
@@ -147,8 +150,24 @@ export default {
     DetailList,
     DetailListItem
   },
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        'agree': '成功',
+        'reject': '驳回'
+      }
+      return statusMap[status]
+    },
+    statusTypeFilter(type) {
+      const statusTypeMap = {
+        'agree': 'success',
+        'reject': 'error'
+      }
+      return statusTypeMap[type]
+    }
+  },
   mixins: [mixinDevice],
-  data () {
+  data() {
     return {
       tabList: [
         {
@@ -280,22 +299,6 @@ export default {
           remark: '-'
         }
       ]
-    }
-  },
-  filters: {
-    statusFilter (status) {
-      const statusMap = {
-        'agree': '成功',
-        'reject': '驳回'
-      }
-      return statusMap[status]
-    },
-    statusTypeFilter (type) {
-      const statusTypeMap = {
-        'agree': 'success',
-        'reject': 'error'
-      }
-      return statusTypeMap[type]
     }
   }
 }

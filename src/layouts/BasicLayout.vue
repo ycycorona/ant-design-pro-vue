@@ -4,7 +4,7 @@
     <a-drawer
       v-if="isMobile()"
       placement="left"
-      :wrapClassName="`drawer-sider ${navTheme}`"
+      :wrap-class-name="`drawer-sider ${navTheme}`"
       :closable="false"
       :visible="collapsed"
       @close="drawerClose"
@@ -74,7 +74,6 @@ import SettingDrawer from '@/components/SettingDrawer'
 
 export default {
   name: 'BasicLayout',
-  mixins: [mixin, mixinDevice],
   components: {
     RouteView,
     MultiTab,
@@ -83,7 +82,8 @@ export default {
     GlobalFooter,
     SettingDrawer
   },
-  data () {
+  mixins: [mixin, mixinDevice],
+  data() {
     return {
       production: config.production,
       collapsed: false,
@@ -95,7 +95,7 @@ export default {
       // 动态主路由
       mainMenu: state => state.permission.addRouters
     }),
-    contentPaddingLeft () {
+    contentPaddingLeft() {
       if (!this.fixSidebar || this.isMobile()) {
         return '0'
       }
@@ -106,15 +106,15 @@ export default {
     }
   },
   watch: {
-    sidebarOpened (val) {
+    sidebarOpened(val) {
       this.collapsed = !val
     }
   },
-  created () {
+  created() {
     this.menus = this.mainMenu.find(item => item.path === '/').children
     this.collapsed = !this.sidebarOpened
   },
-  mounted () {
+  mounted() {
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {
@@ -127,12 +127,12 @@ export default {
   },
   methods: {
     ...mapActions(['setSidebar']),
-    toggle () {
+    toggle() {
       this.collapsed = !this.collapsed
       this.setSidebar(!this.collapsed)
       triggerWindowResizeEvent()
     },
-    paddingCalc () {
+    paddingCalc() {
       let left = ''
       if (this.sidebarOpened) {
         left = this.isDesktop() ? '256px' : '80px'
@@ -141,12 +141,12 @@ export default {
       }
       return left
     },
-    menuSelect () {
+    menuSelect() {
       if (!this.isDesktop()) {
         this.collapsed = false
       }
     },
-    drawerClose () {
+    drawerClose() {
       this.collapsed = false
     }
   }

@@ -1,18 +1,20 @@
 <template>
   <a-layout-sider
+    v-model="collapsed"
     :class="['sider', isDesktop() ? null : 'shadow', theme, fixSiderbar ? 'ant-fixed-sidemenu' : null ]"
     width="256px"
     :collapsible="collapsible"
-    v-model="collapsed"
-    :trigger="null">
+    :trigger="null"
+  >
     <logo />
     <s-menu
       :collapsed="collapsed"
       :menu="menus"
       :theme="theme"
       :mode="mode"
+      style="padding: 16px 0px;"
       @select="onSelect"
-      style="padding: 16px 0px;"></s-menu>
+    ></s-menu>
   </a-layout-sider>
 
 </template>
@@ -53,7 +55,7 @@ export default {
     }
   },
   methods: {
-    onSelect (obj) {
+    onSelect(obj) {
       this.$emit('menuSelect', obj)
     }
   }

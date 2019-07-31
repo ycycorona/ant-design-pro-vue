@@ -7,11 +7,11 @@ export default {
       default: true
     }
   },
-  data () {
+  data() {
     return {}
   },
-  render () {
-    const { $route: { meta }, $store: { getters } } = this
+  render() {
+    const { $route: { meta }, $store: { getters }} = this
     const inKeep = (
       <keep-alive>
         <router-view />

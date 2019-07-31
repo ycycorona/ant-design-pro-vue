@@ -6,12 +6,23 @@
 
 <script>
 
-function fixedZero (val) {
+function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val
 }
 
 export default {
   name: 'CountDown',
+  filters: {
+    format(time) {
+      const hours = 60 * 60 * 1000
+      const minutes = 60 * 1000
+
+      const h = Math.floor(time / hours)
+      const m = Math.floor((time - h * hours) / minutes)
+      const s = Math.floor((time - h * hours - m * minutes) / 1000)
+      return `${fixedZero(h)}:${fixedZero(m)}:${fixedZero(s)}`
+    }
+  },
   props: {
     format: {
       type: Function,
@@ -26,7 +37,7 @@ export default {
       default: () => ({})
     }
   },
-  data () {
+  data() {
     return {
       dateTime: '0',
       originTargetTime: 0,
@@ -35,23 +46,20 @@ export default {
       interval: 1000
     }
   },
-  filters: {
-    format (time) {
-      const hours = 60 * 60 * 1000
-      const minutes = 60 * 1000
-
-      const h = Math.floor(time / hours)
-      const m = Math.floor((time - h * hours) / minutes)
-      const s = Math.floor((time - h * hours - m * minutes) / 1000)
-      return `${fixedZero(h)}:${fixedZero(m)}:${fixedZero(s)}`
-    }
-  },
-  created () {
+  created() {
     this.initTime()
     this.tick()
   },
+  beforeUpdate() {
+    if (this.originTargetTime !== this.target) {
+      this.initTime()
+    }
+  },
+  beforeDestroy() {
+    clearTimeout(this.timer)
+  },
   methods: {
-    initTime () {
+    initTime() {
       let lastTime = 0
       let targetTime = 0
       this.originTargetTime = this.target
@@ -69,7 +77,7 @@ export default {
 
       this.lastTime = lastTime < 0 ? 0 : lastTime
     },
-    tick () {
+    tick() {
       const { onEnd } = this
 
       this.timer = setTimeout(() => {
@@ -85,14 +93,6 @@ export default {
         }
       }, this.interval)
     }
-  },
-  beforeUpdate () {
-    if (this.originTargetTime !== this.target) {
-      this.initTime()
-    }
-  },
-  beforeDestroy () {
-    clearTimeout(this.timer)
   }
 }
 </script>
