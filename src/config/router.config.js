@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView } from '@/layouts'
+import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView, LibraryBaseLayout } from '@/layouts'
 import { bxAnaalyse } from '@/core/icons'
 
 export const asyncRouterMap = [
@@ -322,6 +322,7 @@ export const asyncRouterMap = [
   {
     path: '*', redirect: '/404', hidden: true
   }
+
 ]
 
 /**
@@ -329,6 +330,21 @@ export const asyncRouterMap = [
  * @type { *[] }
  */
 export const constantRouterMap = [
+  {
+    path: '/library',
+    name: 'library-site',
+    component: LibraryBaseLayout,
+    meta: { title: '图书馆' },
+    redirect: '/library/index',
+    children: [
+      {
+        path: 'index',
+        name: 'library-index',
+        component: () => import('@/views/library/LibraryIndex'),
+        meta: { title: '图书馆首页' }
+      }
+    ]
+  },
   {
     path: '/user',
     component: UserLayout,
